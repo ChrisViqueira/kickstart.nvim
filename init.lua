@@ -266,12 +266,18 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+
+-- Custom options starts
+
+vim.o.relativenumber = true
+
+-- Custom options end
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -312,6 +318,26 @@ vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
+-- Custom keymaps start
+
+-- Explore the directory
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+
+
+vim.keymap.set('n', '<leader>W', vim.cmd.SudaWrite, { desc = 'Suda[W]rite for saving files via sudoedit'})
+
+-- (C)hange the current text
+vim.keymap.set("n", "<leader>C", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+-- (c)hange the current text on this line only
+vim.keymap.set("n", "<leader>c", ":s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+-- (R)eplace the current text
+vim.keymap.set("n", "<leader>R", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>")
+-- (r)eplace the current text on this line only
+vim.keymap.set("n", "<leader>r", ":s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>")
+
+-- Custom keymaps end
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -326,7 +352,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
