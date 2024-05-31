@@ -326,8 +326,11 @@ vim.o.termguicolors = true
 -- Explore the directory
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
-
 vim.keymap.set('n', '<leader>W', vim.cmd.SudaWrite, { desc = 'Suda[W]rite for saving files via sudoedit'})
+
+vim.keymap.set('n', '<leader>M', function ()
+  vim.cmd('!make')
+end, { desc = 'Run [M]ake in the current workspace'})
 
 -- (C)hange the current text
 vim.keymap.set("n", "<leader>C", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")

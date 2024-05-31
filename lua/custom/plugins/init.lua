@@ -9,6 +9,13 @@ vim.keymap.set('n', '<A-p>', function ()
   vim.cmd("silent !zathura '" .. pdf .. "' &")
 end)
 
+vim.api.nvim_create_autocmd({"BufWritePost"}, {
+  pattern = "*.tex",
+  callback = function ()
+    vim.cmd("!make")
+  end
+})
+
 return {
     {
     "iamcco/markdown-preview.nvim",
